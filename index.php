@@ -24,6 +24,11 @@
 		{
 			$Username = $_SESSION["usuario"];
 		}
+
+        $ID = null;
+        if (!empty($_GET['ID'])) {
+            $ID = $_GET['ID'];
+        }
 	?>
 </head>
 
@@ -44,12 +49,11 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.php">Inicio</a></li>
-					<!-- <li><a href="vistas/.php">Productos más Populares</a></li> -->
-					<li><a href="vistas/tienda.php">Tienda</a></li>
-                    <li><a href="vistas/nosotros.php">Nosotros</a></li>
-                    <li><a href="vistas/perfil.php">Mi perfil</a></li>
-					<li><a href="#" onclick="ManagementOnclick();">Administrador</a></li>
+                    <?php if($Username == null){echo '<li><a href="index.php">Inicio</a></li>';}else{ echo '<li><a href="index.php?ID=<?php echo $ID?>">Inicio</a></li>';}?>
+                    <?php if($Username == null){echo '<li><a href="vistas/tienda.php">Tienda</a></li>';}else{ echo '<li><a href="vistas/tienda.php?ID='.$ID.'">Tienda</a></li>';}?>
+                    <?php if($Username == null){echo '<li><a href="vistas/nosotros.php">Nosotros</a></li>';}else{ echo '<li><a href="vistas/nosotros.php?ID='.$ID.'">Nosotros</a></li>';}?>
+                    <?php if($Username == null){echo " ";}else{ echo '<li><a href="vistas/perfil.php?ID='.$ID.'">Mi perfil</a></li>';}?>
+					<?php if($Username != null){echo " ";}else{echo '<li><a href="#" onclick="ManagementOnclick();">Administrador</a></li>';}?>
 					<?php if($Username == null){echo '<li><a href="vistas/registro.php?ActionType=Register">Registrarse</a></li>';} ?>
 					<?php if($Username == null){echo '<li><a href="vistas/login.php?rol=usuario">Ingresar</a></li>';} else {echo '<li><a href="vistas/Logout.php">Salir</a></li>';} ?>
                 </ul>
@@ -125,6 +129,7 @@
             	   
             <div class="col-sm-4 col-lg-3 col-md-4">
                 <div class="thumbnail">
+                    <?php echo $Username;?>
                     <h4 style="text-align: center;"><?php echo $Rows[1];?></h4>
                     <center><span class="sale">- <?php echo $Rows[5];?>%</span>
                     <span class="new"><?php echo $Rows[6];?></span>
@@ -135,18 +140,17 @@
                         <p><strong><h4><?php echo $Rows[2];?></h4></strong> </p>
                         <strong class="product-price">S/.<?php if ($Rows[7]==null){$precio = $Rows[3]; echo $Rows[3];}else{ $precio = $Rows[7]; echo $Rows[7];}?></strong> 
                         <del class="product-old-price"><?php if($Rows[5]==null){echo "   ";}else{$precio = $Rows[3]; echo "S/.".$Rows[3];}?></del>
-                        <select name="" id="">
-                        <option value="1" id="cantidad">1</option>
-                        <option value="1" id="cantidad">2</option>
-                        <option value="1" id="cantidad">3</option>
-                        <option value="1" id="cantidad">4</option>
-                        <option value="1" id="cantidad">5</option>
-                        <option value="1" id="cantidad"></option>
-                        </select>
+                        
+                        <form action="vistas/carrito.php?" method="post">
+                            <input type="text"  name="cantidad" id="cantidad" placeholder = "Cantidad" value="1">
+                            <input type="hidden" name="precio" id="precio" value="<?php echo $precio; ?>">
+                            <input type="hidden" name="productID" id="productID" value="<?php echo $Rows[0]; ?>">
+                            <input type="submit" class="btn btn-primary" value="Agregar al carrito">
+                        </form>
                         <!-- <option style="width:70px;" type="number" name="cantidad" id="cantidad" value="1"> -->
                         </center>
                     </div>
-                    <center><a onclick="addToCartOnclick(<?php echo $Rows[0];?>,<?php echo $precio?>);"  style="margin-bottom: 5px;" class="btn btn-primary">Agregar al Carrito</a></center>
+                    <!-- <center><a onclick="addToCartOnclick(<?php echo $Rows[0];?>,<?php echo $precio?>);"  style="margin-bottom: 5px;" class="btn btn-primary">Agregar al Carrito</a></center> -->
                  </div>
              </div>
         
@@ -161,7 +165,7 @@
 					<?php echo '<strong>'.$Username.'</strong>'; ?>
 					<br>
 					<strong>
-					<?php if($Username != null){echo '<a href="vistas/perfil.php?rol=usuario">Perfil</a> |';} ?> 
+					<?php if($Username != null){echo '<a href="vistas/perfil.php?">Perfil</a> |';} ?> 
 					<?php if($Username == null){echo '<a href="vistas/login.php?rol=usuario">Ingresar</a>';} else {echo '<a href="vistas/Logout.php">Salir</a>';} ?> | 
 					<a href="#">Volver al inicio</a>
 					</strong><br>

@@ -21,22 +21,15 @@ class ProductoControlador
         return $producto->mostrarTodo();
     }
 
-    public function agregar(int $idtp,string $descripcion,int $precio){
+    public function agregar($idtipo,$descripcion,$precio,$img,$descuento,$estado){
         $cproducto = new Producto;
-        $cproducto->setIdTP($idtp);
-        $cproducto->setDescripcion($descripcion);
-        $cproducto->setPrecio($precio);
-        $cproducto->agregar();
-    
+        return $cproducto->agregar($idtipo,$descripcion,$precio,$img,$descuento,$estado);
+        
     }
 
-    public function actualizar(int $id, int $idtp,string $descripcion,int $precio){
+    public function actualizar($ProductID,$idtipo,$descripcion,$precio,$img,$descuento,$estado){
         $cproducto = new Producto;
-        $cproducto->setIdTP($idtp);
-        $cproducto->setDescripcion($descripcion);
-        $cproducto->setPrecio($precio);
-        $cproducto->actualizar($id);
-    
+       return $cproducto->actualizar($ProductID,$idtipo,$descripcion,$precio,$img,$descuento,$estado);
     }
     
 

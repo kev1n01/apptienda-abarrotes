@@ -23,22 +23,27 @@ class ClienteControlador
         
     }
 
+    public function mostrarUser($ID)
+    {
+        $cliente = new Cliente();
+        $resultado = $cliente->mostrarU($ID);
+        return $resultado;
+        
+    }
 
-    public function registrarControl(string $usuario,string $pass,string $nombres,string $apellidos,int $dni,string $direccion,int $celular){
-        $clienteregis = new Cliente();
-        $res =  $clienteregis->registrar($usuario,$pass,$nombres,$apellidos,$dni,$direccion,$celular);
-        if($res!=0){
-            return $res = "save";
-        }
+
+    public function registrarControl($user,$pass,$nombre,$apellido,$dni,$direccion,$celular){
+        $clienteregis = new Cliente;
+        return  $clienteregis->registrar($user,$pass,$nombre,$apellido,$dni,$direccion,$celular);
     }
     
 
 
-    public function actualizar(int $id) {
+    public function actualizar($id,$user,$pass,$nombre,$apellido,$dni,$direccion,$celular) {
         $clienteupdate = new Cliente();
-        
-        return $clienteupdate->actualizar($id);      
+        return $clienteupdate->actualizar($id,$user,$pass,$nombre,$apellido,$dni,$direccion,$celular);      
     }
+    
     
     public function eliminar(int $id){
         $clientedelete = new Cliente();

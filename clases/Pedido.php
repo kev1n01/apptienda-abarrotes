@@ -36,7 +36,7 @@ class Pedido
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $query = " SELECT p.id_pedido,tp.tipo,pro.descripcion, pro.precio_producto,p.fecha_pedido FROM productos as pro join pedido as p on pro.id_producto=p.idproducto_productos join
+            $query = " SELECT p.id_pedido,tp.tipo,pro.descripcion, p.precio_total,p.fecha_pedido FROM productos as pro join pedido as p on pro.id_producto=p.idproducto_productos join
             tipoproducto as tp on pro.id_tipo_productos=tp.id_Tproducto
             WHERE p.idcliente_clientes=$id order by p.id_pedido";
             $resultado = $conexion->query($query);
@@ -79,8 +79,7 @@ class Pedido
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $sql = "INSERT INTO `pedido`(`idcliente_clientes`, `idproducto_productos`,`fecha_pedido`, `cantidad_producto`, `precio_total`) 
-			                VALUES ('$idcli','$idproduct','$fecha','$cantidad','$precioT'";
+            $sql = "INSERT INTO pedido(`idcliente_clientes`, `idproducto_productos`,`fecha_pedido`, `cantidad_producto`, `precio_total`) VALUES ($idcli,$idproduct,'$fecha',$cantidad,$precioT)";
             $guardado = $conexion->exec($sql);
             $objConexion->cerrar();   
         } catch (\PDOException $e) {

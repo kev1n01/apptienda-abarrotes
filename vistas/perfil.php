@@ -30,10 +30,15 @@
 		{
 			$usuario = $_SESSION["usuario"];
 		}
+
+        $ID = null;
+        if (!empty($_GET['ID'])) {
+            $ID = $_GET['ID'];
+        }
         // $password = $_SESSION["password"];
         
         $vercliente = new ClienteControlador();
-        $res = $vercliente->mostrarUser();
+        $res = $vercliente->mostrarUser($ID);
 
 		foreach ($res as $Rows) {
             
@@ -67,9 +72,9 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="../index.php">Inicio</a></li>
-					<li><a href="tienda.php">Tienda</a></li>
-                    <li><a href="nosotros.php">Nosotros</a></li>
+                    <li><a href="../index.php?ID=<?php echo $ID?>">Inicio</a></li>
+					<li><a href="tienda.php?ID=<?php echo $ID?>">Tienda</a></li>
+                    <li><a href="nosotros.php?ID=<?php echo $ID?>">Nosotros</a></li>
 					<?php if($usuario == null){echo '<li><a href="registro.php?ActionType=Register">Registrarse</a></li>';} ?>
 					<?php if($usuario == null){echo '<li><a href="login.php?rol=usuario">Ingresar</a></li>';} else {echo '<li><a href="Logout.php">Salir</a></li>';} ?>
                 </ul>
@@ -85,7 +90,7 @@
 						<hr>
 						<h2 class="intro-text text-center">Mi perfil   </h2>
 						<hr>
-					<div class="col-md-6">	
+					<div class="col-md-4">	
 							<form role="form" action="registro.php?ActionType=Edit&Loc=MA&id=<?php echo $id; ?>" method="POST">
 							<h4 style="text-align: center">Informacion de cuenta</h4>
 							<div class="form-group">
@@ -94,7 +99,7 @@
 							</div>
 							<div class="form-group">
                                 <label for="password">Contraseña:</label>
-                                <input type="text" name="password" class="form-control" id="password" value="<?php echo $pass; ?>" disabled>
+                                <input type="password" name="password" class="form-control" id="password" value="<?php echo $pass; ?>" disabled>
                             </div>
 
                             <div class="form-group">
@@ -126,16 +131,16 @@
 						</form>
 					</div>
 					
-					<div class="col-md-6">	
+					<div class="col-md-8">	
 						<h4 style="text-align: center">Mis pedidos</h4>
-						<div class="table-responsive">
-							<table border="5px" class="table">
+						<div  class="table-responsive">
+							<table border="1px" class="table">
 								<tr style="text-align: center; color: Black; font-weight: bold;">
 
                                     <td>ID de Pedido</td>
                                     <td>Tipo producto</td>
                                     <td>Nombre de Producto</td>
-                                    <td>Precio de Producto</td>
+                                    <td>Precio </td>
                                     <td>Fecha de Pedido</td>
                                     <td>Acción</td>
 								</tr>
@@ -146,18 +151,19 @@
 
 								foreach ($resultado as $Rows){ 
 								?>
-								<tr style="color: black">
+								<tr >
 								<td><?php echo $Rows[0]; ?></td>
 								<td><?php echo $Rows[1]; ?></td>
 								<td><?php echo $Rows[2]; ?></td>
 								<td><?php echo $Rows[3]; ?></td>
 								<td><?php echo $Rows[4]; ?></td>
 								<td>
-								<a href="#" onclick="cancelOrder(<?php echo $Rows[0]; ?>);">Cancelar</a>
+								<a href="#" class="btn btn-danger" onclick="cancelOrder(<?php echo $Rows[0]; ?>);">Eliminar</a>
 								</td>
-								<?php }?>
+								<?php  ;}?>
 								</tr>
 							</table>
+                                    
 						</div>
 					</div>
                 </div>

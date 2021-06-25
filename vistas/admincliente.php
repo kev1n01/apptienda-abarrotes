@@ -71,7 +71,7 @@
 						<div class="table-responsive">
 							    <table border="5px" class="table">
 								<tr style="text-align: center; color: Black; font-weight: bold;">
-                                <td>ID de Cliente</td>
+                                <td>ID</td>
                                 <td>Rol</td>
                                 <td>Nombres</td>
                                 <td>Apellidos</td>

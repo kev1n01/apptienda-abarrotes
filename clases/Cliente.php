@@ -130,11 +130,11 @@ class Cliente
         return $resultado;
     }
     
-    public function mostrarU(){
+    public function mostrarU(string $ID){
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $query = "SELECT * FROM clientes where id_cliente=1";
+            $query = "SELECT * FROM clientes where id_cliente=$ID";
             $resultado = $conexion->query($query);
             $objConexion->cerrar();
         }catch (\PDOException $e){
@@ -146,13 +146,12 @@ class Cliente
     
 
 
-    public function registrar(string $usuario,string $pass,string $nombres,string $apellidos,int $dni,string $direccion,int $celular){
+    public function registrar($user,$pass,$nombre,$apellido,$dni,$direccion,$celular){
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $sqlinsert = "INSERT INTO clientes(usuario,password,rol,nombres, apellidos, dni, direccion, celular)
-                             VALUES ('$usuario','$pass','usuario','$nombres','$apellidos',$dni,'$direccion',$celular)";
-            $insertado = $conexion->exec($sqlinsert);
+            $sqlinsert = "INSERT INTO clientes(usuario,password,rol,nombres, apellidos, dni, direccion, num_celular) VALUES ('$user','$pass','usuario','$nombre','$apellido','$dni','$direccion','$celular')";
+            $insertado = $conexion->query($sqlinsert);
             $objConexion->cerrar();   
         } catch (\PDOException $e) {
             echo "Error: ".$e->getMessage();
@@ -161,13 +160,12 @@ class Cliente
         return $insertado;
     }
 
-    public function actualizar(int $id){
+    public function actualizar($id,$user,$pass,$nombre,$apellido,$dni,$direccion,$celular){
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $sqlupdate = "UPDATE clientes SET usuario = '$this->usuario',password = '$this->pass',nombres = '$this->nombres',apellidos = '$this->apellidos',
-            dni = '$this->dni', direccion = '$this->direccion',num_celular = '$this->celular' WHERE id_cliente= $id";
-            $actualizado = $conexion->query($sqlupdate);
+            $sqlupdate = "UPDATE clientes SET usuario = '$user','password' = '$pass',nombres = '$nombre',apellidos = '$apellido',dni = $dni, direccion = '$direccion',num_celular = $celular WHERE id_cliente= $id";
+            $actualizado = $conexion->exec($sqlupdate);
             $objConexion->cerrar();   
         } catch (\PDOException $e) {
             echo "Error: ".$e->getMessage();

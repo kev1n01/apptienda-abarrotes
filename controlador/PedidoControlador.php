@@ -38,7 +38,7 @@ class PedidoControlador
                 // }
     }
 
-    public function guardarPedido(int $idcli, int $idproduct,string $fecha,int $cantidad, float $precioT){
+    public function guardarPedido($idcli,$idproduct,$fecha,$cantidad,$precioT){
         $pedido =  new Pedido();
         $res = $pedido->guardar($idcli,$idproduct,$fecha,$cantidad,$precioT);
         return $res;

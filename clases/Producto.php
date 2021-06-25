@@ -100,11 +100,11 @@ class Producto{
 
 
 
-    public function agregar(){
+    public function agregar($idtipo,$descripcion,$precio,$img,$descuento,$estado){
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $query = "INSERT INTO  productos(id_tipo_productos,descripcion,precio_producto) VALUES($this->idtp,'$this->descripcion',$this->precio) ";
+            $query = "INSERT INTO  productos(id_tipo_productos,descripcion,precio_producto,img,descuento,estado) VALUES($idtipo,'$descripcion',$precio,'$img',$descuento,'$estado') ";
             $resultado = $conexion->query($query);
             $objConexion->cerrar();
         }catch (\PDOException $e){
@@ -128,12 +128,11 @@ class Producto{
         return $eliminado;
     }
 
-    public function actualizar(int $id){
+    public function actualizar($ProductID,$idtipo,$descripcion,$precio,$img,$descuento,$estado){
         try {
             $objConexion = new ConexionDB();
             $conexion = $objConexion->abrir();
-            $sqldelete = "UPDATE productos SET id_tipo_productos = $this->idtp,descripcion = '$this->descripcion',precio = $this->precio
-            WHERE id_producto = $id";
+            $sqldelete = "UPDATE productos SET id_tipo_productos = $idtipo,descripcion = '$descripcion' ,precio_producto = $precio, img = '$img',descuento = $descuento,estado='$estado'  WHERE id_producto = $ProductID";
             $eliminado = $conexion->exec($sqldelete);
             $objConexion->cerrar();   
         } catch (\PDOException $e) {

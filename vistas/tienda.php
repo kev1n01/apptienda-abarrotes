@@ -21,12 +21,16 @@
    
 	
 	<?php
-		$usuario = null;
+		$Username = null;
 		if(!empty($_SESSION["usuario"]))
 		{
-			$usuario = $_SESSION["usuario"];
+			$Username = $_SESSION["usuario"];
 		}
-	?>
+        $ID = null;
+        if (!empty($_GET['ID'])) {
+            $ID = $_GET['ID'];
+        }
+?>
 </head>
 
 <body>
@@ -46,12 +50,13 @@
             </div> -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                <li><a href="../index.php">Inicio</a></li>
-					<li><a href="tienda.php">Tienda</a></li>
-                    <li><a href="nosotros.php">Nosotros</a></li>
-					<li><a href="#" onclick="ManagementOnclick();">Administrador</a></li>
-					<?php if($usuario == null){echo '<li><a href="registro.php?ActionType=Register">Registrarse</a></li>';} ?>
-					<?php if($usuario == null){echo '<li><a href="login.php?rol=usuario">Ingresar</a></li>';} else {echo '<li><a href="Logout.php">Salir</a></li>';} ?>
+                    <?php if($Username == null){echo '<li><a href="../index.php">Inicio</a></li>';}else{ echo '<li><a href="../index.php?ID=<?php echo $ID?>">Inicio</a></li>';}?>
+                    <?php if($Username == null){echo '<li><a href="tienda.php">Tienda</a></li>';}else{ echo '<li><a href="tienda.php?ID='.$ID.'">Tienda</a></li>';}?>
+                    <?php if($Username == null){echo '<li><a href="nosotros.php">Nosotros</a></li>';}else{ echo '<li><a href="nosotros.php?ID='.$ID.'">Nosotros</a></li>';}?>
+                    <?php if($Username == null){echo " ";}else{ echo '<li><a href="perfil.php?ID='.$ID.'">Mi perfil</a></li>';}?>
+					<?php if($Username != null){echo " ";}else{echo '<li><a href="#" onclick="ManagementOnclick();">Administrador</a></li>';}?>
+					<?php if($Username == null){echo '<li><a href="registro.php?ActionType=Register">Registrarse</a></li>';} ?>
+					<?php if($Username == null){echo '<li><a href="login.php?rol=usuario">Ingresar</a></li>';} else {echo '<li><a href="Logout.php">Salir</a></li>';} ?>
                 </ul>
             </div>
         </div>
@@ -91,11 +96,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <p>
-					<?php echo '<strong>'.$usuario.'</strong>'; ?>
+					<?php echo '<strong>'.$Username.'</strong>'; ?>
 					<br>
 					<strong>
-					<?php if($usuario != null){echo '<a href="perfil.php?rol=usuario">Mi Perfil</a> |';} ?> 
-					<?php if($usuario == null){echo '<a href="login.php?rol=usuario">Ingresar</a>';} else {echo '<a href="Logout.php">Salir</a>';} ?> | 
+					<?php if($Username != null){echo '<a href="perfil.php?rol=usuario">Mi Perfil</a> |';} ?> 
+					<?php if($Username == null){echo '<a href="login.php?rol=usuario">Ingresar</a>';} else {echo '<a href="Logout.php">Salir</a>';} ?> | 
 					<a href="#">Volver al inicio</a>
 					</strong><br>
 					Copyright &copy; TiendaBrave

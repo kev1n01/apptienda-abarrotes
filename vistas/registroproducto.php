@@ -74,14 +74,12 @@
             <div class="box">
                 <div class="col-lg-12">
 						<hr>
-						<h2 class="intro-text text-center">Agregar Producto</h2>
+                        <h2 class="intro-text text-center"><?php if($ProductAction == "Add"){echo "Agregar Producto";}else echo "Editar Producto"; ?></h2>
 						<hr>
                         <center>
                     <div class="center">
 					<div class="col-md-8">
-							<form role="form" action="productodestino.php?ProductAction=
-                            <?php echo $ProductAction; if($ProductAction=="Edit"){ echo "&ProductID=" . $_GET['ProdID'];} ?>" 
-							method="POST" class="form" enctype = "multipart/form-data">
+							<form role="form" action="productodestino.php?ProductAction=<?php echo $ProductAction; if($ProductAction=="Edit"){ echo "&ProductID=" . $_GET['ProdID'];} ?>" method="POST" class="form" enctype = "multipart/form-data">
 							
 							<!-- <div class="form-group">
 							  <label for="id">ID de producto:</label>
@@ -90,23 +88,33 @@
 							
 							<div class="form-group">
 							  <label for="tipo">ID Tipo de producto:</label>
-							  <input type="text" name="tipo" class="form-control" id="tipo" placeholder="Ingresa id tipo producto" required>
+							  <input type="text" name="tipo" class="form-control" id="tipo" placeholder="Ingresa id tipo producto" >
 							</div>
 							
 							<div class="form-group">
 							  <label for="descripcion">Descripcion de Producto:</label>
-							  <input type="text" name="descripcion" class="form-control" id="descripcion" placeholder="Ingresa descripcion de producto" required>
+							  <input type="text" name="descripcion" class="form-control" id="descripcion" placeholder="Ingresa descripcion de producto" >
 							</div>
 
 							<div class="form-group">
 							  <label for="precio">Precio del Producto:</label>
-							  <input type="text" name="precio" class="form-control" id="precio" placeholder="Ingrese el precio del producto" required>
+							  <input type="text" name="precio" class="form-control" id="precio" placeholder="Ingrese el precio del producto" >
+							</div>
+							
+                            <div class="form-group">
+							  <label for="precio">Descuento:</label>
+							  <input type="text" name="descuento" class="form-control" id="descuento" placeholder="Ingrese descuento(Opcional)" >
+							</div>
+							
+                            <div class="form-group">
+							  <label for="precio">Estado del Producto:</label>
+							  <input type="text" name="estado" class="form-control" id="estado" placeholder="Ingrese el estado(new/old)" >
 							</div>
 						
-							<!-- <div class="form-group">
+							<div class="form-group">
 								<label for="img">Imagen de Producto:</label>
-								<input type="file" class="btn btn-default"  name="img">
-							</div> -->
+								<input type="file" class="btn btn-default"  name="img" id="img">
+							</div> 
 							
 							<div class="form-group">
 							<button type="submit" style="float: right;" class="btn btn-primary">Agregar</button>

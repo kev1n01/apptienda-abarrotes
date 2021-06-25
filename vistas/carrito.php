@@ -56,9 +56,14 @@
 	<?php
 		$USER = $_SESSION['usuario'];
 		$PASS = $_SESSION['password'];
-		$ProductID = $_GET['ProductID'];
-		// $cant = $_GET["Cant"];
-        $precio = $_GET["Precio"];
+		// $ProductID = $_GET['ProductID'];
+		// // $cant = $_GET["Cant"];
+        // $precio = $_GET["Precio"];
+        if (!empty($_POST)) {
+            $precioPost = $_POST["precio"];
+            $cant = $_POST["cantidad"];
+            $ProductID = $_POST["productID"];
+        }
 
 		if(empty($USER)){echo '<script>window.open("login.php?rol=usuario","_self",null,true);</script>';}
        
@@ -69,6 +74,8 @@
 		$cliente = new ClienteControlador();
         $ClienteID = $cliente->mostrarIdUser($USER,$PASS);
         
+        date_default_timezone_set("america/lima");
+         $fecha = date("Y-m-d");
 	?>
 
 
@@ -80,11 +87,12 @@
                     <hr>
                     <h2 class="intro-text text-center">Pedido</h2>
                     <hr><br>
+                   <?php echo $fecha;?>
                 </div>
 
                 <div class="col-md-6">
-                 <form role="form" action="carritoDestino.php?ProductID=<?php echo $ProductID; ?>&ClienteID=<?php echo $ClienteID; ?>" method="POST">
-					<div class="form-group">
+                 <form action="carritoDestino.php" method="POST">
+					<div class="form-group">    
 					  <label for="ClienteID">Cliente ID:</label>
 					  <input type="text" name="ClienteID" class="form-control" id="ClienteID" value="<?php echo $ClienteID; ?>" disabled>
 					</div>
@@ -96,15 +104,21 @@
 					
                     <div class="form-group">
 						<label for="cantidad">Cantidad:</label>
-						<input type="text" name="cantidad" class="form-control" id="cantidad">
+						<input type="text" name="cantidad" class="form-control" id="cantidad" value="<?php echo $cant; ?>" disabled>
+					</div>
+                   
+                    <div class="form-group">
+						<label for="cantidad">Precio Unitario:</label>
+						<input type="text" name="cantidad" class="form-control" id="cantidad" value="<?php echo $precioPost; ?>" disabled>
 					</div>
 					
                     <div class="form-group">
 						<label for="precioT">Precio Total:</label>
-						<input type="text" name="precioT" class="form-control" id="precioT" value="<?php ?>">
+						<input type="text" name="precioT" class="form-control" id="precioT" value="<?php echo $cant*$precioPost?>"  disabled>
 					</div>
-						<button type="submit" style="float: right;" class="btn btn-success">Realizar compra</button>
+						<input type="submit" name="add" style="float: right;" class="btn btn-success" value="Agregar a mi carrito">
 					</form>
+                    
 				</div>
                 
                 <div class="clearfix"></div>
